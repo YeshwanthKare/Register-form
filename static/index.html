@@ -1,71 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Registration Form</h1>
 
     <form id="reg-form">
-        <input type="text" autocomplete="off" id='username' name="username" placeholder="Username"/>
-        <input type="text" autocomplete="off" id='email' name="email" placeholder="Email"/>
-        <input type="password" autocomplete="off" id='password' name="password" placeholder="Password"/>
-        <input type="submit" value="Submit">
+      <input
+        type="text"
+        autocomplete="off"
+        id="username"
+        name="username"
+        placeholder="Username"
+      />
+      <input
+        type="text"
+        autocomplete="off"
+        id="email"
+        name="email"
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        autocomplete="off"
+        id="password"
+        name="password"
+        placeholder="Password"
+      />
+      <input type="submit" value="Submit" />
     </form>
 
     <script>
-        const form = document.getElementById('reg-form')
-        form.addEventListener('submit', userRegistration);
+      const form = document.getElementById("reg-form");
 
-        function userRegistration(event) {
-            event.preventDefault();
+      form.addEventListener("submit", userRegistration);
+      async function userRegistration(event) {
+        event.preventDefault();
 
-            let username = document.getElementById('username').value;
-            let password = document.getElementById('password').value;
-            let email = document.getElementById('email').value;
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let email = document.getElementById("email").value;
 
-            axios.post('/api/reg', {
-                
-                username,
-                email,
-                password
-                
-            })
-            .then((res) => {
-                console.log(res.data)
+        // axios.post('/api/reg', {
 
-            })
-            
+        //     username,
+        //     email,
+        //     password
 
-            // console.log(username);
-        
-            
-            // fetch('/api/reg', {
-            //     method: 'POST',
-            //     header: { 
-            //         'Content-Type' : 'application/json' 
-            //     },
-            //     body: JSON.stringify({
-            //         username, 
-            //         email, 
-            //         password
-            //     })
-                
-            // })
-            // .then((res) => {
-            //     return res.json();
-            // })
-            // .then((data) => {
-            //     console.log(data);
-            // })
-        }
-        
-    
+        // })
+        // .then((res) => {
+        //     console.log(res.data)
+
+        // })
+
+        // console.log(username);
+
+        const response = await fetch("/api/reg", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+            email,
+          }),
+        });
+        const data = await response.json();
+        console.log(data);
+      }
     </script>
-
-</body>
+  </body>
 </html>
