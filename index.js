@@ -4,6 +4,9 @@ const path = require('path')
 const mongoose = require('mongoose');
 const User = require('./model/user')
 const bcrypt = require('bcryptjs');
+require('dotenv').config(); 
+
+// console.log(process.env)
 
 const app = express()
 
@@ -12,9 +15,10 @@ app.use(express.json());
 app.use('/',express.static(path.join(__dirname,'static')))
 
 // connect to mongodB
-const dbURI = 'mongodb+srv://testuser:test123@nodetuts.kiou2.mongodb.net/users?retryWrites=true&w=majority';
 
-mongoose.connect(dbURI, {
+const MY_DB = process.env.dbURI
+
+mongoose.connect(MY_DB, {
   useNewUrlParser: true,
   useUnifiedTopology:true,
   useCreateIndex: true
